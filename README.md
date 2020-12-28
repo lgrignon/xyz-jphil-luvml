@@ -1,0 +1,1 @@
+Luvml is a way to Love Html (and XML). It is a Html DSL compatible with normal Java and Javascript (using JSweet v3)
