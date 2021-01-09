@@ -107,6 +107,8 @@
                     <!-- <module>none</module>
                     <moduleResolution>classic</moduleResolution> --> <!-- not there in chart.js, not there in J4TS -->
                     <candiesJsOut>target/candies</candiesJsOut> <!-- There in J4TS, TODO: try removing later -->
+                    <declaration>true</declaration>
+                    <dtsOut>target/ts</dtsOut>
                 </configuration>
                 <executions>
                     <execution>

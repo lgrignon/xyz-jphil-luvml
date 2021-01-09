@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml.a;
+package luvml.e;
+
+import luvml.a.Attribute_I;
 
 /**
  *
  * @author
  */
-public class A_Lang extends Attribute_m {
-    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("lang");
-    public A_Lang() {
-        super(DEFINITION);
+public class E_Meta extends Element_m {
+    public E_Meta() {
+        super("meta",false);
     }
-    
-    public A_Lang(String v) {
-        super(DEFINITION,v);
+    public static E_Meta meta(){
+        return new E_Meta();
     }
-    
-    public static A_Lang lang(String v){
-        return new A_Lang(v);
-    }
-    
-    public static final A_Lang en(){
-        return A_Lang.lang("en");
+    public static E_Meta meta(Attribute_I ... segments){
+        return (E_Meta) new E_Meta().____(segments);
     }
 }

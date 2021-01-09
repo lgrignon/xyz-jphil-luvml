@@ -25,10 +25,10 @@ public class E_Main extends Element_m {
     public E_Main() {
         super("main");
     }
-    public static E_Main main(){
+    public static E_Main mAin(){
         return new E_Main();
     }
-    public static E_Main main(HtmlSegment_I ... segments){
+    public static E_Main mAin(HtmlSegment_I ... segments){
         return (E_Main) new E_Main().____(segments);
     }
 }

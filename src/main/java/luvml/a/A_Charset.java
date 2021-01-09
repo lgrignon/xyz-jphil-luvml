@@ -19,21 +19,21 @@ package luvml.a;
  *
  * @author
  */
-public class A_Lang extends Attribute_m {
-    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("lang");
-    public A_Lang() {
+public class A_Charset extends Attribute_m {
+    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("charset");
+    public A_Charset() {
         super(DEFINITION);
     }
     
-    public A_Lang(String v) {
+    public A_Charset(String v) {
         super(DEFINITION,v);
     }
     
-    public static A_Lang lang(String v){
-        return new A_Lang(v);
+    public static A_Charset charset(String v){
+        return new A_Charset(v);
     }
     
-    public static final A_Lang en(){
-        return A_Lang.lang("en");
+    public static A_Charset charset_utf8(){
+        return new A_Charset("UTF-8");
     }
 }
