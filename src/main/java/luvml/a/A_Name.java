@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class A_Name extends Attribute_m {
+    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("name");
+    public A_Name() {
+        super(DEFINITION);
+    }
+    
+    public A_Name(String v) {
+        super(DEFINITION,v);
+    }
+    
+    public static A_Name nAme(String v){
+        return new A_Name(v);
+    }
 }

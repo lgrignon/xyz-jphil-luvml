@@ -13,17 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class A_Height extends Attribute_m {
+    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("height");
+    public A_Height() {
+        super(DEFINITION);
+    }
+    
+    public A_Height(String v) {
+        super(DEFINITION,v);
+    }
+    
+    public static A_Height height(String v){
+        return new A_Height(v);
+    }
+    
+    public static A_Height height_px(int v){
+        return new A_Height(Integer.toString(v));
+    }
 }

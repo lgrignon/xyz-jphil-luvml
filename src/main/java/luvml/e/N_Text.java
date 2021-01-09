@@ -13,17 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
+
+import luvml.HtmlSegmentType_E;
+import luvml.___F;
+import luvml.o.Out_I;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class N_Text implements Node_I {
+    private final ___F src;
+    public N_Text(___F src) {
+        this.src = src;
+    }
+    public static N_Text text(final String text){
+        return new N_Text(__->__.__(text));
+    }
+    public static N_Text text(___F src){
+        return new N_Text(src);
+    }
+    @Override
+    public HtmlSegmentType_E type() {
+        return HtmlSegmentType_E.Text;
+    }
+
+    @Override
+    public void to(Out_I o) {
+        src.to(o);
+    }
+    
 }

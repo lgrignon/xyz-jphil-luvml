@@ -15,15 +15,28 @@
  */
 package luvml;
 
+import luvml.e.E_Html;
+import luvml.o.Out_I;
+
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public final class Html5 extends E_Html {
+    public static Html5 html5(){
+        return new Html5();
+    }
+    
+    public static Html5 html5(HtmlSegment_I ... segments){
+        Html5 html5_ = new Html5();
+        html5_.____(segments);
+        return html5_;
+    }
+    
+    @Override
+    public void to(Out_I o) {
+        o.__("<!DOCTYPE html>").nL();
+        super.to(o);
+    }
+    
 }

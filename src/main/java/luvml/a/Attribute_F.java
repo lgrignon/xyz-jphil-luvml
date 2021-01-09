@@ -13,17 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
+
+import luvml.___F;
+import luvml.o.Out_I;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public final class Attribute_F extends Attribute_Am{
+    private final ___F value;
+    public Attribute_F(String key,___F value) {
+        this(AttributeDefinition_O.named(key), value);
+    }
+    public Attribute_F(AttributeDefinition_I key,___F value) {
+        super(key);
+        this.value = value;
+    }
+    public static Attribute_F __(String key,___F value){
+        return new Attribute_F(key, value);
+    }
+    @Override public void valueTo(Out_I o) {
+        value.to(o);
+    }    
 }

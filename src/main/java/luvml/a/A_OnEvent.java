@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class A_OnEvent extends Attribute_m {
+    //public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("src");
+    private final String event;
+    
+    public A_OnEvent(String event, String v) {
+        super(AttributeDefinition_O.named("on"+event) ,v);
+        this.event = event;
+    }
+    
+    public static A_OnEvent onclick(String v){
+        return new A_OnEvent("click",v);
+    }
 }

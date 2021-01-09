@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
+
+import luvml.HtmlSegment_I;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class E_Blockquote extends Element_m {
+    public E_Blockquote() {
+        super("blockquote");
+    }
+    public static E_Blockquote blockquote(){
+        return new E_Blockquote();
+    }
+    public static E_Blockquote blockquote(HtmlSegment_I ... segments){
+        return (E_Blockquote) new E_Blockquote().____(segments);
+    }
 }

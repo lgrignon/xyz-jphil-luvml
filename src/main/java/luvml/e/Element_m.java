@@ -22,7 +22,7 @@ import luvml.o.Out_I;
 import java.util.ArrayList;
 import static luvml.HtmlSegmentType_E.*;
 import luvml.a.AttributeDefinition_I;
-import luvml.a.clss;
+import luvml.a.A_Class;
 
 /**
  *
@@ -36,6 +36,7 @@ public class Element_m implements Node_I, Element_I {
     private final String tag;
     private final boolean selfClosingHtml;
     private final boolean strictXml;
+    private final boolean strictNonSelfClosing;
 
     public Element_m(String tag) {
         this(tag, false);
@@ -46,11 +47,18 @@ public class Element_m implements Node_I, Element_I {
     }
     
     public Element_m(String tag, boolean selfClosingHtml, boolean strictXml) {
+        this(tag, selfClosingHtml, strictXml, false);
+    }
+    public Element_m(String tag, boolean selfClosingHtml, boolean strictXml, boolean strictNonSelfClosing) {
         this.tag = tag;
         this.selfClosingHtml = selfClosingHtml;
         this.strictXml = strictXml;
+        this.strictNonSelfClosing = strictNonSelfClosing;
         if(selfClosingHtml&&strictXml){
             throw new UnsupportedOperationException("An element cannot be both, self closing html and a strict xml");
+        }
+        if(selfClosingHtml && strictNonSelfClosing){
+            throw new IllegalArgumentException("Cannot be both selfClosing and strictNonSelfClosing");
         }
         if(tag==null)throw new NullPointerException("Tag cannot be null");
     }
@@ -104,8 +112,8 @@ public class Element_m implements Node_I, Element_I {
         if(previouslyExisting!=null){
             // if it is a proper clss type
             // append to existing (without duplicates)
-            if(previouslyExisting instanceof clss || toAdd instanceof clss){
-                ((clss)previouslyExisting).__(((clss)toAdd));
+            if(previouslyExisting instanceof A_Class || toAdd instanceof A_Class){
+                ((A_Class)previouslyExisting).addClasses(((A_Class)toAdd));
                 return;
             }else  {
                 // replace (remove+add)
@@ -138,7 +146,7 @@ public class Element_m implements Node_I, Element_I {
         return children;
     }
     
-    public final Attribute_I attribute(String name){
+    public final Attribute_I getAttributeByName(String name){
         if(name==null)return null;
         for (int a_idx = 0; a_idx < attributes.size(); a_idx++) {
             Attribute_I a_i = attributes.get(a_idx);
@@ -149,9 +157,9 @@ public class Element_m implements Node_I, Element_I {
         return null;
     }
     
-    public final Attribute_I attribute_(AttributeDefinition_I adi){
+    public final Attribute_I getAttribute(AttributeDefinition_I adi){
         if(adi==null)return null;
-        return attribute(adi.attributeName());
+        return getAttributeByName(adi.attributeName());
     }
 
     @Override
@@ -170,20 +178,21 @@ public class Element_m implements Node_I, Element_I {
         if(children.size()==0){
             if(selfClosingHtml && !o.parameters().isPolyglotXHTML()){
                 o.__(">");
+            }else if(!strictNonSelfClosing){
+                o.__("/>"); o.nL();
             }else {
-                o.__("/>");
+                o.__("></"); o.__(tag);o.__(">");
             }
-            o.nL();
+            
             return;
         }
+        o.__(">");
         o.nL();
         for (int e_idx = 0; e_idx < children.size(); e_idx++) {
             Node_I e_i = children.get(e_idx);
             e_i.to(o.child());
         }
-        o.__("</");
-        o.__(tag);
-        o.__(">");
+        o.__("</"); o.__(tag);o.__(">");
         o.nL();
     }
     

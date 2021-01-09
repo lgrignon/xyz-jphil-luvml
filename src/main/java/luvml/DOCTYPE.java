@@ -17,7 +17,7 @@ package luvml;
 
 import luvml.HtmlSegmentType_E;
 import luvml.HtmlSegment_I;
-import luvml.e.html;
+import luvml.e.E_Html;
 import luvml.o.Out_I;
 
 /**
@@ -25,16 +25,16 @@ import luvml.o.Out_I;
  * @author
  */
 public final class DOCTYPE implements HtmlSegment_I {
-    private html h;
+    private E_Html h;
     public static DOCTYPE html5(){
         return new DOCTYPE();
     }
     
-    public html html(HtmlSegment_I ... segments){
+    public E_Html html(HtmlSegment_I ... segments){
         if(h!=null){
             throw new IllegalStateException("Already added children, now please use the returned html object or a child to put more elements");            
         }
-        h = new html();
+        h = new E_Html();
         h.____(segments);
         return h;
     }

@@ -1,13 +1,14 @@
 package luvml.o;
 
 import java.util.function.Consumer;
+import luvml.___F;
 
 /**
  *
  * @author Ivan Velikanova
  */
 public final class Out_String extends Out_A{
-    public Out_String(){this(null);}
+    public Out_String(){super();} // directly calling because of some inexplicable bug in js transpilation
     public Out_String(Consumer<ParametersBuilder<Object>> ap){super(ap);}
     private String s = "";    
     @Override public Out_String __(String s) {
@@ -25,6 +26,15 @@ public final class Out_String extends Out_A{
     public Out_String ba(byte[] b) {
         this.s += new String(b/*,StandardCharsets.UTF_8*/); return this;
     }
-
+    public static String asString(___F f){
+        Out_String os = new Out_String();
+        f.to(os);
+        return os.render();
+    }
+    public static String asFormattedString(___F f){
+        Out_String os = new Out_String();
+        f.to(os);
+        return os.render();
+    }
     
 }

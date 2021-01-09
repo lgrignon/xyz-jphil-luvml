@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
 
+import static luvml.a.Attribute_O.attribute;
+import static luvml.e.N_Text.text;
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class E_Time extends Element_m {
+    public E_Time() {
+        super("time");
+    }
+    public static E_Time time(){
+        return new E_Time();
+    }
+    public static E_Time datetime(String datetime, String caption){
+        return (E_Time) new E_Time().____(
+            attribute("datetime", datetime),
+            text(caption)
+        );
+    }
 }

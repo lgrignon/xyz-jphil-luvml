@@ -13,17 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
+
+import luvml.___F;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class A_Href extends Attribute_m {
+    public static final AttributeDefinition_O
+            DEFINITION = AttributeDefinition_O.named("href");
+    public A_Href() {
+        super(DEFINITION);
+    }
+    
+    public A_Href(String v) {
+        super(DEFINITION,v);
+    }
+    
+    public static A_Href href(String v){
+        return new A_Href(v);
+    }
+    
+    public static Attribute_F href(___F value){
+        return new Attribute_F(DEFINITION, value);
+    }
 }

@@ -23,9 +23,13 @@ import java.util.function.Consumer;
  */
 public abstract class Out_A<ExtraParams> implements Out_I{
     public final Parameters p;
+    public Out_A() {
+        ParametersBuilder pb = new ParametersBuilder();
+        p = pb.build();
+    }
     public Out_A(Consumer<ParametersBuilder<ExtraParams>> ap) {
         ParametersBuilder pb = new ParametersBuilder();
-        if(ap!=null){ap.accept(pb);}
+        if(ap!=null && ap instanceof Consumer){ap.accept(pb);} // added instanceof to ensure jsweet null check
         p = pb.build();
     }
     @Override public Parameters parameters() { return p; }
@@ -49,6 +53,11 @@ public abstract class Out_A<ExtraParams> implements Out_I{
     @Override public Out_A parent(){
         return null;
     }
+    
+    public static <ExtraParams> Consumer<ParametersBuilder<ExtraParams>> formatted(){
+        return __->__.format($->$.singleTabIntent().newLine_Unix());
+    }
+    
     public static final class ChildOut_IA extends Out_A<Object> {
         private final Out_A parent;
         public ChildOut_IA(Out_A parent) {

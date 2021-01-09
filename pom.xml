@@ -3,22 +3,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.xyz-jphil</groupId>
     <artifactId>xyz-jphil-luvml</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-    
-        <jsweet.transpiler.version>3.0.0</jsweet.transpiler.version> <!-- Released on 2020-12-17  -->
-        <jsweet.core.version>6.3.0</jsweet.core.version> <!-- as per 2020-12-16 from https://github.com/cincheo/jsweet-quickstart/blob/master/pom.xml -->
+        <jsweet.transpiler.version>3.0.0</jsweet.transpiler.version>
+        <jsweet.core.version>6.3.0</jsweet.core.version>
         <java.version.release>11</java.version.release>
         <java.version>1.${java.version.release}</java.version>
         <jstargetVersion>ES6</jstargetVersion> <!--https://developers.google.com/apps-script/guides/v8-runtime -->
     </properties>
     <name>xyz-jphil-luvml</name>
     <description>Luvml is a way to Love Html (and XML). It is a Html DSL compatible with normal Java and Javascript (using JSweet v3)</description>
-    <url>https://github.com/xyz-jphil/xyz-jphil-patterns-lambda</url>
+    <url>https://github.com/xyz-jphil/${project.artifactId}</url>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -35,13 +34,13 @@
     </developers>
     
     <!-- JSweet specific start { -->
-    <!-- <dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.jsweet</groupId>
             <artifactId>jsweet-core</artifactId>
             <version>${jsweet.core.version}</version>
         </dependency>
-    </dependencies> -->
+    </dependencies>
     <pluginRepositories>
         <pluginRepository>
             <id>jsweet-plugins-release</id>
@@ -86,6 +85,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <!-- <fork>true</fork> --> <!-- not there in the non-candy quickstart, not there is example cited also. TODO : REMOVE -->
                 </configuration>
             </plugin>			
             <plugin>
@@ -94,16 +94,19 @@
                 <version>${jsweet.transpiler.version}</version>
                 <configuration>
                     <verbose>true</verbose>
-                    <bundle>true</bundle>
-                    <!-- <tsOut>src/main/resources/src/typings/${project.artifactId}/${project.version}</tsOut>
-                    <outDir>target/js</outDir> -->
-                    <declaration>true</declaration>
-                    <outDir>src/main/resources/META-INF/resources/webjars/${project.artifactId}/${project.version}</outDir>
-                    <dtsOut>src/main/resources/src/typings/${project.artifactId}/${project.version}</dtsOut>			
-                    <encoding>UTF-8</encoding>                    
-                    <targetVersion>${jstargetVersion}</targetVersion>                     
-                    <module>none</module>
-                    <moduleResolution>classic</moduleResolution>	
+                    <sourceMap>false</sourceMap> <!-- in J4TS -->
+                    <bundle>true</bundle> <!-- Not there in J4TS, withou this bundle.js might not happen -->
+                    <!-- <tsOut>src/main/resources/src/typings/${project.artifactId}/${project.version}</tsOut> -->
+                    <outDir>target/js</outDir> <!-- As per J4TS : TODO : KEEP, remove this comment -->
+                    <!-- <declaration>true</declaration> --> <!-- not there in the non-candy quickstart, not there in J4TS, TODO : Remove -->
+                    <tsserver>true</tsserver>
+                    <!-- <outDir>src/main/resources/META-INF/resources/webjars/${project.artifactId}/${project.version}</outDir> --> <!-- not there in j4ts -->                    
+                    <!-- <tsOut>src/main/resources/META-INF/resources/typings/${project.artifactId}/${project.version}</tsOut> --> <!-- TS out not there -->
+                    <!-- <encoding>UTF-8</encoding>  --> <!-- not there in j4ts : TODO : REMOVE -->
+                    <targetVersion>${jstargetVersion}</targetVersion> <!-- set to ES3 in candy examples, ES6 in J4TS, this is ok, TODO : remove comment -->
+                    <!-- <module>none</module>
+                    <moduleResolution>classic</moduleResolution> --> <!-- not there in chart.js, not there in J4TS -->
+                    <candiesJsOut>target/candies</candiesJsOut> <!-- There in J4TS, TODO: try removing later -->
                 </configuration>
                 <executions>
                     <execution>
@@ -130,21 +133,24 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <echo message="copying generated bundles to dist..." />
-                                <mkdir dir="target/dist/"></mkdir>
+                                <echo message="copying js files to artifact's JSweet dir" />	
+                                <delete dir="src/main/resources/META-INF/resources"></delete>
                                 <copy
                                     file="target/js/bundle.js"
-                                    tofile="target/dist/${project.artifactId}.js" verbose="true"
-                                    failonerror="false" />
+                                    tofile="src/main/resources/META-INF/resources/webjars/${project.artifactId}/${project.version}/bundle.js"
+                                    verbose="true" />
                                 <copy
                                     file="target/ts/bundle.d.ts"
-                                    tofile="target/dist/${project.artifactId}.d.ts" verbose="true"
-                                    failonerror="false" />
-                                <echo message="copying JavaScript lib to resources..." />
-                                <!-- <copy file="bower_components/sprintf/dist/sprintf.min.js"
-                                        tofile="src/main/resources/META-INF/resources/webjars/${project.artifactId}/${project.version}/bundle.js"
-                                        verbose="true" /> -->
-                            </target>
+                                    tofile="src/main/resources/META-INF/resources/typings/${project.artifactId}/${project.version}/bundle.d.ts"
+                                    verbose="true" />
+                                <echo message="copying generated bundles to dist..." />
+                                <copy
+                                        file="target/js/bundle.js"
+                                        tofile="dist/${project.artifactId}.js" verbose="true" />
+                                <copy
+                                        file="target/ts/bundle.d.ts"
+                                        tofile="dist/${project.artifactId}.d.ts" verbose="true" />
+                                </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -183,13 +189,16 @@
                     <fixTags>all</fixTags>
                     <failOnError>false</failOnError>
                     <!-- leave these options unchanged to place the Javadoc at the right place for jsweet.org -->
-                    <reportOutputDirectory>/var/www/apidocs/releases/org/jsweet/candies</reportOutputDirectory>
-                    <destDir>${project.artifactId}/${project.version}</destDir>
+                    <!-- Since this is a java candy, not following these, TODO : remove these unncessary lines -->
+                    <!-- <reportOutputDirectory>/var/www/apidocs/releases/org/jsweet/candies</reportOutputDirectory>
+                    <destDir>${project.artifactId}/${project.version}</destDir> -->
                     <!-- end of jsweet.org configuration -->
                     <header><![CDATA[<a href="http://www.jsweet.org" target="_blank" style="text-transform: lowercase">http://www.jsweet.org<a>]]></header>
                     <bottom><![CDATA[<center>Copyright 2015, <a href="http://www.cincheo.org" target="_blank">CinchÃ©o SAS<a> - Web site: <a href="http://www.jsweet.org" target="_blank">http://www.jsweet.org<a><center>]]></bottom>
                     <stylesheetfile>/var/www/apidocs/stylesheet.css</stylesheetfile>
                 </configuration>
+                <!-- Disable javadoc for now -->
+                <!-- 
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
@@ -198,14 +207,15 @@
                         </goals>
                     </execution>
                 </executions>
+                -->
             </plugin>
         </plugins>
     </build>
     <!-- } End of JSweet Specific -->
     <!-- Maven OSSRH Specifiec -->
     <scm>
-        <connection>scm:git:git://github.com/xyz-jphil/xyz-jphil-patterns-lambda.git</connection>
-        <developerConnection>scm:git:ssh://github.com:xyz-jphil/xyz-jphil-patterns-lambda.git</developerConnection>
+        <connection>scm:git:git://github.com/xyz-jphil/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:ssh://github.com:xyz-jphil/${project.artifactId}.git</developerConnection>
         <url>http://github.com/simpligility/ossrh-demo/tree/master</url>
     </scm>
     <distributionManagement>

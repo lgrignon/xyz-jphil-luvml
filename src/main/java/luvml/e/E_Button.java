@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
+
+import luvml.HtmlSegment_I;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class E_Button extends Element_m {
+    public E_Button() {
+        super("button");
+    }
+    public static E_Button button(){
+        return new E_Button();
+    }
+    public static E_Button button(HtmlSegment_I ... segments){
+        return (E_Button) new E_Button().____(segments);
+    }
 }

@@ -13,17 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
+
+import luvml.a.Attribute_O;
+import luvml.o.Out_I;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class E_Path extends Element_m {
+    public E_Path() {
+        super("path",false,true);
+    }
+    public static E_Path path(){
+        return new E_Path();
+    }
+    public E_Path path_d(String path){
+        ____(Attribute_O.__("d", path));
+        return this;
+    }
+
+    @Override
+    public void to(Out_I o) {
+        
+        super.to(o); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

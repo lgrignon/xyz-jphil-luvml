@@ -13,17 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.a;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class A_Allow extends Attribute_m {
+    public static final AttributeDefinition_O DEFINITION = AttributeDefinition_O.named("allow");
+    public A_Allow() {
+        super(DEFINITION);
+    }
+    
+    public A_Allow(String v) {
+        super(DEFINITION,v);
+    }
+    
+    public static A_Allow allow(String ... v){
+        String joined_v = "";
+        for (int i = 0; i < v.length; i++) {
+            String v_i = v[i];
+            if(i < v.length - 1){
+                joined_v += "; ";
+            }
+            joined_v += v_i;
+        }
+        return new A_Allow(joined_v);
+    }
 }

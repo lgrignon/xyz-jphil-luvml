@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Ivan Velikanova ivan.velikanova@gmail.com .
+ * Copyright 2021 Ivan Velikanova ivan.velikanova@gmail.com .
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.dynamic;
+
+import java.util.function.Function;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public interface MappedObjectKey_I<E,V> extends ObjectKey_I<E,V>{
+    Function<E,V> mapValue();
 }

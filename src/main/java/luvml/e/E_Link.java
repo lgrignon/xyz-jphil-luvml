@@ -13,17 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package luvml;
+package luvml.e;
+
+import luvml.HtmlSegment_I;
+import luvml.a.Attribute_O;
 
 /**
- * 
+ *
  * @author
  */
-public enum HtmlSegmentType_E {
-    Attribute, // href="w3.com"
-    Element, //root type of this is Node 
-    Text, //root type of this is Node
-    Comment, // <!-- -->
-    DocType, // <!DocType html>
-    NodeFragment // like a group of elements making a html menu bar 
+public class E_Link extends Element_m {
+    public E_Link() {
+        super("link");
+    }
+    public static E_Link link(){
+        return new E_Link();
+    }
+    public static E_Link link(HtmlSegment_I ... segments){
+        return (E_Link) new E_Link().____(segments);
+    }
+    public static E_Link stylesheet(String url){
+        E_Link l = new E_Link();
+        l.____(Attribute_O.__("rel", "stylesheet"));
+        l.____(Attribute_O.__("href", url));
+        return l;
+    }
 }
